@@ -45,6 +45,18 @@ try
         New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "Selenium Hub" -Value  ('java -jar "' + $seleniumServerJAR +'"  -role hub') -PropertyType "String" 
            New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "Selenium Node" -Value  ('java -jar "' + $seleniumServerJAR +'"  -role node  -hub http://localhost:4444/grid/register') -PropertyType "String" 
 
+
+ 
+}
+catch
+{
+    Write-Error 'Failed to create reg entries '
+}
+
+try
+{
+  
+
 Start-Process 'java' -ArgumentList ('-jar "' + $seleniumServerJAR +'"  -role hub')
 Start-Process 'java' -ArgumentList ('-jar "' + $seleniumServerJAR +'"  -role node -hub http://localhost:4444/grid/register')
  
@@ -52,7 +64,7 @@ Start-Process 'java' -ArgumentList ('-jar "' + $seleniumServerJAR +'"  -role nod
 }
 catch
 {
-    Write-Error 'Failed to create reg entries and start Selenium Server '
+    Write-Error 'Failed to  start Selenium Server '
 }
 
 try{
